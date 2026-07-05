@@ -9,3 +9,4 @@ eez-framework-amalgamation/node_modules
 node_modules
 eez-gui-lite-runtime/build
 CMakeLists.local.cmake
+.vs
