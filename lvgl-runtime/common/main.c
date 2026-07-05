@@ -20,6 +20,10 @@ int ver_res;
 uint32_t *display_fb;
 bool display_fb_dirty;
 
+// Saved for cleanup on re-init (prevents memory leak when init() is called
+// multiple times, e.g. on each autorun cycle in the EEZ Studio editor)
+static void *g_display_buf1 = NULL;
+
 #if LVGL_VERSION_MAJOR >= 9
 void my_driver_flush(lv_display_t *disp_drv, const lv_area_t *area, uint8_t *px_map) {
 #else
@@ -284,11 +288,13 @@ EM_PORT_API(void) hal_init(bool is_editor) {
     uint8_t *buf1 = malloc(sizeof(uint32_t) * hor_res * ver_res);
     uint8_t *buf2 = NULL;
     lv_display_set_buffers(disp, buf1, buf2, sizeof(uint32_t) * hor_res * ver_res, LV_DISPLAY_RENDER_MODE_PARTIAL);
+    g_display_buf1 = buf1;
 #else
     /*Create a display buffer*/
     static lv_disp_draw_buf_t disp_buf1;
     lv_color_t * buf1_1 = malloc(sizeof(lv_color_t) * hor_res * ver_res);
     lv_disp_draw_buf_init(&disp_buf1, buf1_1, NULL, hor_res * ver_res);
+    g_display_buf1 = (void *)buf1_1;
 
     /*Create a display*/
     static lv_disp_drv_t disp_drv;
@@ -355,6 +361,21 @@ static uint32_t g_prevTick;
 
 EM_PORT_API(void) init(uint32_t wasmModuleId, uint32_t debuggerMessageSubsciptionFilter, uint8_t *assets, uint32_t assetsSize, uint32_t displayWidth, uint32_t displayHeight, bool darkTheme, uint32_t timeZone, bool screensLifetimeSupport) {
     bool is_editor = assetsSize == 0;
+
+    // If init() is called again (e.g. autorun re-triggers in editor),
+    // clean up the previous LVGL state to prevent memory leaks.
+    if (initialized) {
+        if (display_fb) {
+            free(display_fb);
+            display_fb = NULL;
+        }
+        if (g_display_buf1) {
+            free(g_display_buf1);
+            g_display_buf1 = NULL;
+        }
+        lv_deinit();
+        initialized = false;
+    }
 
     hor_res = displayWidth;
     ver_res = displayHeight;

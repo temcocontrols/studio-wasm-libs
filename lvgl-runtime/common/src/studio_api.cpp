@@ -594,6 +594,7 @@ EM_PORT_API(uint32_t) to_lvgl_color(uint32_t color) {
 ////////////////////////////////////////////////////////////////////////////////
 
 EM_PORT_API(void *) lvglCreateFreeTypeFont(const char *filePath, int size, int renderMode, int style) {
+#if LV_USE_FREETYPE
 #if LVGL_VERSION_MAJOR >= 9
     lv_font_t *font = lv_freetype_font_create(filePath, (lv_freetype_font_render_mode_t)renderMode, (uint32_t)size, (lv_freetype_font_style_t)style);
     
@@ -617,6 +618,10 @@ EM_PORT_API(void *) lvglCreateFreeTypeFont(const char *filePath, int size, int r
     }    
 
     return info->font;
+#endif
+#else
+    LV_LOG_ERROR("FreeType not enabled");
+    return 0;
 #endif
 }
 
