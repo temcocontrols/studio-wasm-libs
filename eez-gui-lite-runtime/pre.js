@@ -16,6 +16,11 @@ module["exports"] = function (postWorkerToRendererMessage) {
     };
 
     Module.locateFile = function (path, scriptDirectory) {
+        if (typeof document !== "undefined") {
+            var scripts = document.getElementsByTagName("script");
+            var src = scripts[scripts.length - 1].src;
+            return src.substring(0, src.lastIndexOf("/") + 1) + path;
+        }
         if (scriptDirectory) return scriptDirectory + path;
         return __dirname + "/" + path;
     };
