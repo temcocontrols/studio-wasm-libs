@@ -72,13 +72,17 @@ var ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIR
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
 // include: C:/QN/temcocontrols/studio-wasm-libs/lvgl-runtime/v8.4.0/../common/pre.js
-module["exports"] = function (postWorkerToRendererMessage) {
+// Export the factory function for both CommonJS (Electron/Node) and
+// browser environments (globalThis fallback for script-tag loading).
+var LVGLWasmRuntime = function (postWorkerToRendererMessage) {
     var Module = {};
 
     Module.postWorkerToRendererMessage = postWorkerToRendererMessage;
 
     Module.onRuntimeInitialized = function () {
-        postWorkerToRendererMessage({ init: {} });
+        if (postWorkerToRendererMessage) {
+            postWorkerToRendererMessage({ init: {} });
+        }
     }
 
     Module.print = function (args) {
@@ -90,13 +94,28 @@ module["exports"] = function (postWorkerToRendererMessage) {
     };
 
     Module.locateFile = function (path, scriptDirectory) {
-        if (scriptDirectory) return scriptDirectory + path;
-        return new URL(path, import.meta.url).href;
+        // Prefer the explicit URL set by the host (handles Vite/Quasar path rewriting)
+        if (typeof globalThis !== "undefined" && globalThis.__lvglWasmUrl && path.endsWith(".wasm")) {
+            return globalThis.__lvglWasmUrl;
+        }
+        // Fallback: locate next to the loading script
+        var scripts = document.getElementsByTagName("script");
+        var src = scripts[scripts.length - 1].src;
+        return src.substring(0, src.lastIndexOf("/") + 1) + path;
     };
 
     runWasmModule(Module);
 
     return Module;
+};
+
+// CommonJS export (Electron/Node)
+if (typeof module !== "undefined" && module["exports"]) {
+    module["exports"] = LVGLWasmRuntime;
+}
+// Browser global (script-tag loading)
+if (typeof globalThis !== "undefined") {
+    globalThis.LVGLWasmRuntime = LVGLWasmRuntime;
 }
 
 function runWasmModule(Module) {
@@ -5295,31 +5314,31 @@ function checkIncomingModuleAPI() {
   ignoredModuleProp('onCOSStore');
 }
 var ASM_CONSTS = {
-  1071088: ($0) => { startToDebuggerMessage($0); },  
- 1071120: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
- 1071195: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
- 1071270: ($0) => { finishToDebuggerMessage($0); },  
- 1071303: ($0, $1) => { lvglCreateScreen($0, $1); },  
- 1071333: ($0, $1) => { lvglDeleteScreen($0, $1); },  
- 1071363: ($0) => { lvglScreenTick($0); },  
- 1071387: ($0, $1, $2, $3) => { lvglOnEventHandler($0, $1, $2, $3); },  
- 1071427: ($0, $1) => { return getLvglScreenByName($0, UTF8ToString($1)); },  
- 1071481: ($0, $1) => { return getLvglObjectByName($0, UTF8ToString($1)); },  
- 1071535: ($0, $1) => { return getLvglGroupByName($0, UTF8ToString($1)); },  
- 1071588: ($0, $1) => { return getLvglStyleByName($0, UTF8ToString($1)); },  
- 1071641: ($0, $1) => { return getLvglImageByName($0, UTF8ToString($1)); },  
- 1071694: ($0, $1) => { return getLvglFontByName($0, UTF8ToString($1)); },  
- 1071746: ($0, $1) => { return getLvglObjectNameFromIndex($0, $1); },  
- 1071793: ($0, $1, $2) => { lvglObjAddStyle($0, $1, $2); },  
- 1071826: ($0, $1, $2) => { lvglObjRemoveStyle($0, $1, $2); },  
- 1071862: ($0, $1) => { lvglSetColorTheme($0, UTF8ToString($1)); },  
- 1071907: ($0, $1, $2, $3, $4, $5) => { return eez_mqtt_init($0, UTF8ToString($1), UTF8ToString($2), $3, UTF8ToString($4), UTF8ToString($5)); },  
- 1072013: ($0, $1) => { return eez_mqtt_deinit($0, $1); },  
- 1072049: ($0, $1) => { return eez_mqtt_connect($0, $1); },  
- 1072086: ($0, $1) => { return eez_mqtt_disconnect($0, $1); },  
- 1072126: ($0, $1, $2) => { return eez_mqtt_subscribe($0, $1, UTF8ToString($2)); },  
- 1072183: ($0, $1, $2) => { return eez_mqtt_unsubscribe($0, $1, UTF8ToString($2)); },  
- 1072242: ($0, $1, $2, $3) => { return eez_mqtt_publish($0, $1, UTF8ToString($2), UTF8ToString($3)); }
+  1071120: ($0) => { startToDebuggerMessage($0); },  
+ 1071152: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
+ 1071227: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
+ 1071302: ($0) => { finishToDebuggerMessage($0); },  
+ 1071335: ($0, $1) => { lvglCreateScreen($0, $1); },  
+ 1071365: ($0, $1) => { lvglDeleteScreen($0, $1); },  
+ 1071395: ($0) => { lvglScreenTick($0); },  
+ 1071419: ($0, $1, $2, $3) => { lvglOnEventHandler($0, $1, $2, $3); },  
+ 1071459: ($0, $1) => { return getLvglScreenByName($0, UTF8ToString($1)); },  
+ 1071513: ($0, $1) => { return getLvglObjectByName($0, UTF8ToString($1)); },  
+ 1071567: ($0, $1) => { return getLvglGroupByName($0, UTF8ToString($1)); },  
+ 1071620: ($0, $1) => { return getLvglStyleByName($0, UTF8ToString($1)); },  
+ 1071673: ($0, $1) => { return getLvglImageByName($0, UTF8ToString($1)); },  
+ 1071726: ($0, $1) => { return getLvglFontByName($0, UTF8ToString($1)); },  
+ 1071778: ($0, $1) => { return getLvglObjectNameFromIndex($0, $1); },  
+ 1071825: ($0, $1, $2) => { lvglObjAddStyle($0, $1, $2); },  
+ 1071858: ($0, $1, $2) => { lvglObjRemoveStyle($0, $1, $2); },  
+ 1071894: ($0, $1) => { lvglSetColorTheme($0, UTF8ToString($1)); },  
+ 1071939: ($0, $1, $2, $3, $4, $5) => { return eez_mqtt_init($0, UTF8ToString($1), UTF8ToString($2), $3, UTF8ToString($4), UTF8ToString($5)); },  
+ 1072045: ($0, $1) => { return eez_mqtt_deinit($0, $1); },  
+ 1072081: ($0, $1) => { return eez_mqtt_connect($0, $1); },  
+ 1072118: ($0, $1) => { return eez_mqtt_disconnect($0, $1); },  
+ 1072158: ($0, $1, $2) => { return eez_mqtt_subscribe($0, $1, UTF8ToString($2)); },  
+ 1072215: ($0, $1, $2) => { return eez_mqtt_unsubscribe($0, $1, UTF8ToString($2)); },  
+ 1072274: ($0, $1, $2, $3) => { return eez_mqtt_publish($0, $1, UTF8ToString($2), UTF8ToString($3)); }
 };
 
 // Imports from the Wasm binary.
@@ -5339,6 +5358,7 @@ var _lv_indev_drv_register = Module['_lv_indev_drv_register'] = makeInvalidEarly
 var _lv_fs_drv_init = Module['_lv_fs_drv_init'] = makeInvalidEarlyAccess('_lv_fs_drv_init');
 var _lv_fs_drv_register = Module['_lv_fs_drv_register'] = makeInvalidEarlyAccess('_lv_fs_drv_register');
 var _init = Module['_init'] = makeInvalidEarlyAccess('_init');
+var _free = Module['_free'] = makeInvalidEarlyAccess('_free');
 var _lv_init = Module['_lv_init'] = makeInvalidEarlyAccess('_lv_init');
 var _lv_disp_get_default = Module['_lv_disp_get_default'] = makeInvalidEarlyAccess('_lv_disp_get_default');
 var _lv_palette_main = Module['_lv_palette_main'] = makeInvalidEarlyAccess('_lv_palette_main');
@@ -6392,7 +6412,6 @@ var _lv_lru_remove = Module['_lv_lru_remove'] = makeInvalidEarlyAccess('_lv_lru_
 var _lv_sqrt = Module['_lv_sqrt'] = makeInvalidEarlyAccess('_lv_sqrt');
 var _lv_rand = Module['_lv_rand'] = makeInvalidEarlyAccess('_lv_rand');
 var _lv_mem_deinit = Module['_lv_mem_deinit'] = makeInvalidEarlyAccess('_lv_mem_deinit');
-var _free = Module['_free'] = makeInvalidEarlyAccess('_free');
 var _lv_mem_test = Module['_lv_mem_test'] = makeInvalidEarlyAccess('_lv_mem_test');
 var _lv_mem_monitor = Module['_lv_mem_monitor'] = makeInvalidEarlyAccess('_lv_mem_monitor');
 var _lv_vsnprintf = Module['_lv_vsnprintf'] = makeInvalidEarlyAccess('_lv_vsnprintf');
@@ -6548,6 +6567,7 @@ var _lv_textarea_text_is_selected = Module['_lv_textarea_text_is_selected'] = ma
 var _lv_textarea_get_text_selection = Module['_lv_textarea_get_text_selection'] = makeInvalidEarlyAccess('_lv_textarea_get_text_selection');
 var _lv_textarea_get_password_show_time = Module['_lv_textarea_get_password_show_time'] = makeInvalidEarlyAccess('_lv_textarea_get_password_show_time');
 var _onMqttEvent = Module['_onMqttEvent'] = makeInvalidEarlyAccess('_onMqttEvent');
+var _eez_flow_add_images = Module['_eez_flow_add_images'] = makeInvalidEarlyAccess('_eez_flow_add_images');
 var _eez_flow_init_themes = Module['_eez_flow_init_themes'] = makeInvalidEarlyAccess('_eez_flow_init_themes');
 var _flowPropagateValueLVGLEvent = Module['_flowPropagateValueLVGLEvent'] = makeInvalidEarlyAccess('_flowPropagateValueLVGLEvent');
 var __evalIntegerProperty = Module['__evalIntegerProperty'] = makeInvalidEarlyAccess('__evalIntegerProperty');
@@ -6588,6 +6608,7 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['lv_fs_drv_init'] != 'undefined', 'missing Wasm export: lv_fs_drv_init');
   assert(typeof wasmExports['lv_fs_drv_register'] != 'undefined', 'missing Wasm export: lv_fs_drv_register');
   assert(typeof wasmExports['init'] != 'undefined', 'missing Wasm export: init');
+  assert(typeof wasmExports['free'] != 'undefined', 'missing Wasm export: free');
   assert(typeof wasmExports['lv_init'] != 'undefined', 'missing Wasm export: lv_init');
   assert(typeof wasmExports['lv_disp_get_default'] != 'undefined', 'missing Wasm export: lv_disp_get_default');
   assert(typeof wasmExports['lv_palette_main'] != 'undefined', 'missing Wasm export: lv_palette_main');
@@ -7641,7 +7662,6 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['lv_sqrt'] != 'undefined', 'missing Wasm export: lv_sqrt');
   assert(typeof wasmExports['lv_rand'] != 'undefined', 'missing Wasm export: lv_rand');
   assert(typeof wasmExports['lv_mem_deinit'] != 'undefined', 'missing Wasm export: lv_mem_deinit');
-  assert(typeof wasmExports['free'] != 'undefined', 'missing Wasm export: free');
   assert(typeof wasmExports['lv_mem_test'] != 'undefined', 'missing Wasm export: lv_mem_test');
   assert(typeof wasmExports['lv_mem_monitor'] != 'undefined', 'missing Wasm export: lv_mem_monitor');
   assert(typeof wasmExports['lv_vsnprintf'] != 'undefined', 'missing Wasm export: lv_vsnprintf');
@@ -7797,6 +7817,7 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['lv_textarea_get_text_selection'] != 'undefined', 'missing Wasm export: lv_textarea_get_text_selection');
   assert(typeof wasmExports['lv_textarea_get_password_show_time'] != 'undefined', 'missing Wasm export: lv_textarea_get_password_show_time');
   assert(typeof wasmExports['onMqttEvent'] != 'undefined', 'missing Wasm export: onMqttEvent');
+  assert(typeof wasmExports['eez_flow_add_images'] != 'undefined', 'missing Wasm export: eez_flow_add_images');
   assert(typeof wasmExports['eez_flow_init_themes'] != 'undefined', 'missing Wasm export: eez_flow_init_themes');
   assert(typeof wasmExports['flowPropagateValueLVGLEvent'] != 'undefined', 'missing Wasm export: flowPropagateValueLVGLEvent');
   assert(typeof wasmExports['_evalIntegerProperty'] != 'undefined', 'missing Wasm export: _evalIntegerProperty');
@@ -7834,6 +7855,7 @@ function assignWasmExports(wasmExports) {
   _lv_fs_drv_init = Module['_lv_fs_drv_init'] = createExportWrapper('lv_fs_drv_init', 1);
   _lv_fs_drv_register = Module['_lv_fs_drv_register'] = createExportWrapper('lv_fs_drv_register', 1);
   _init = Module['_init'] = createExportWrapper('init', 9);
+  _free = Module['_free'] = createExportWrapper('free', 1);
   _lv_init = Module['_lv_init'] = createExportWrapper('lv_init', 0);
   _lv_disp_get_default = Module['_lv_disp_get_default'] = createExportWrapper('lv_disp_get_default', 0);
   _lv_palette_main = Module['_lv_palette_main'] = createExportWrapper('lv_palette_main', 2);
@@ -8887,7 +8909,6 @@ function assignWasmExports(wasmExports) {
   _lv_sqrt = Module['_lv_sqrt'] = createExportWrapper('lv_sqrt', 3);
   _lv_rand = Module['_lv_rand'] = createExportWrapper('lv_rand', 2);
   _lv_mem_deinit = Module['_lv_mem_deinit'] = createExportWrapper('lv_mem_deinit', 0);
-  _free = Module['_free'] = createExportWrapper('free', 1);
   _lv_mem_test = Module['_lv_mem_test'] = createExportWrapper('lv_mem_test', 0);
   _lv_mem_monitor = Module['_lv_mem_monitor'] = createExportWrapper('lv_mem_monitor', 1);
   _lv_vsnprintf = Module['_lv_vsnprintf'] = createExportWrapper('lv_vsnprintf', 4);
@@ -9043,6 +9064,7 @@ function assignWasmExports(wasmExports) {
   _lv_textarea_get_text_selection = Module['_lv_textarea_get_text_selection'] = createExportWrapper('lv_textarea_get_text_selection', 1);
   _lv_textarea_get_password_show_time = Module['_lv_textarea_get_password_show_time'] = createExportWrapper('lv_textarea_get_password_show_time', 1);
   _onMqttEvent = Module['_onMqttEvent'] = createExportWrapper('onMqttEvent', 4);
+  _eez_flow_add_images = Module['_eez_flow_add_images'] = createExportWrapper('eez_flow_add_images', 2);
   _eez_flow_init_themes = Module['_eez_flow_init_themes'] = createExportWrapper('eez_flow_init_themes', 5);
   _flowPropagateValueLVGLEvent = Module['_flowPropagateValueLVGLEvent'] = createExportWrapper('flowPropagateValueLVGLEvent', 4);
   __evalIntegerProperty = Module['__evalIntegerProperty'] = createExportWrapper('_evalIntegerProperty', 6);

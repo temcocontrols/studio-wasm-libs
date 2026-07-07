@@ -373,7 +373,9 @@ EM_PORT_API(void) init(uint32_t wasmModuleId, uint32_t debuggerMessageSubsciptio
             free(g_display_buf1);
             g_display_buf1 = NULL;
         }
+#if LVGL_VERSION_MAJOR >= 9
         lv_deinit();
+#endif
         initialized = false;
     }
 
