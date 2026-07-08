@@ -107,8 +107,30 @@ EM_PORT_API(void) init(uint32_t wasmModuleId, uint32_t debuggerMessageSubsciptio
     eez::flow::setDebuggerMessageSubsciptionFilter(debuggerMessageSubsciptionFilter);
     eez::flow::onDebuggerClientConnected();
 
+    // Start the flow engine — creates flow states for all pages.
+    // Without this, g_isStopped remains true and getPageFlowState()
+    // always returns nullptr, so no flow states are ever created.
+    eez::flow::start(eez::g_mainAssets);
+
     eez::gui::startThread();
     eez::gui::display::turnOn();
+}
+
+// Trigger page flow state creation from JS.
+// pageId is 1-based (matches the C++ convention: page index + 1).
+EM_PORT_API(void) pageChanged(int previousPageId, int activePageId) {
+    eez::flow::onPageChanged(previousPageId, activePageId);
+}
+
+// Directly create a page flow state and return its index, or -1 on failure.
+EM_PORT_API(int) initPageFlowState(int pageIndex) {
+#if EEZ_OPTION_GUI
+    WidgetCursor widgetCursor;
+    auto flowState = eez::flow::getPageFlowState(eez::g_mainAssets, pageIndex, widgetCursor);
+#else
+    auto flowState = eez::flow::getPageFlowState(eez::g_mainAssets, pageIndex);
+#endif
+    return flowState ? flowState->flowStateIndex : -1;
 }
 
 EM_PORT_API(bool) mainLoop() {
