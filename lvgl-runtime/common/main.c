@@ -392,9 +392,11 @@ EM_PORT_API(void) init(uint32_t wasmModuleId, uint32_t debuggerMessageSubsciptio
     lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), darkTheme, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
 
-    if (!is_editor && assets) {
+    if (!is_editor) {
         flowInit(wasmModuleId, debuggerMessageSubsciptionFilter, assets, assetsSize, darkTheme, timeZone, screensLifetimeSupport);
     }
+
+    // Input devices: always init for run mode (editor handles its own input separately)
 
 #if LVGL_VERSION_MAJOR >= 9
     g_prevTick = (uint32_t)emscripten_get_now();

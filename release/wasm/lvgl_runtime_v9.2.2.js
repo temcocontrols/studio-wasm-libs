@@ -5348,13 +5348,7 @@ var ASM_CONSTS = {
  1071522: ($0, $1) => { return eez_mqtt_disconnect($0, $1); },  
  1071562: ($0, $1, $2) => { return eez_mqtt_subscribe($0, $1, UTF8ToString($2)); },  
  1071619: ($0, $1, $2) => { return eez_mqtt_unsubscribe($0, $1, UTF8ToString($2)); },  
- 1071678: ($0, $1, $2, $3) => { return eez_mqtt_publish($0, $1, UTF8ToString($2), UTF8ToString($3)); },  
- 1071751: ($0, $1, $2) => { console.log("[C:getPageFlowState] assets=" + ($0 ? "OK" : "NULL") + " hasFlowDef=" + !!$1 + " pageIndex=" + $2); },  
- 1071868: () => { console.log("[C:getPageFlowState] RETURNING NULL: no flowDefinition"); },  
- 1071943: () => { console.log("[C:getPageFlowState] RETURNING NULL: flow is STOPPED"); },  
- 1072016: ($0) => { console.log("[C:getPageFlowState] FOUND existing flowState idx=" + $0); },  
- 1072092: ($0) => { console.log("[C:getPageFlowState] CREATING new flowState for pageIndex=" + $0); },  
- 1072176: ($0) => { console.log("[C:getPageFlowState] created flowState=" + ($0 ? "OK" : "NULL")); }
+ 1071678: ($0, $1, $2, $3) => { return eez_mqtt_publish($0, $1, UTF8ToString($2), UTF8ToString($3)); }
 };
 
 // Imports from the Wasm binary.

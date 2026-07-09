@@ -5560,6 +5560,7 @@ var _lvglGroupAddObject = Module['_lvglGroupAddObject'] = makeInvalidEarlyAccess
 var _lvglGroupRemoveObjectsForScreen = Module['_lvglGroupRemoveObjectsForScreen'] = makeInvalidEarlyAccess('_lvglGroupRemoveObjectsForScreen');
 var _lvglAddEventHandler = Module['_lvglAddEventHandler'] = makeInvalidEarlyAccess('_lvglAddEventHandler');
 var _lvglSetEventUserData = Module['_lvglSetEventUserData'] = makeInvalidEarlyAccess('_lvglSetEventUserData');
+var _lv_bin_decoder_init = Module['_lv_bin_decoder_init'] = makeInvalidEarlyAccess('_lv_bin_decoder_init');
 var _lvglCreateScreen = Module['_lvglCreateScreen'] = makeInvalidEarlyAccess('_lvglCreateScreen');
 var _lvglCreateUserWidget = Module['_lvglCreateUserWidget'] = makeInvalidEarlyAccess('_lvglCreateUserWidget');
 var _lvglScreenLoad = Module['_lvglScreenLoad'] = makeInvalidEarlyAccess('_lvglScreenLoad');
@@ -6363,11 +6364,11 @@ var _lv_grid_fr = Module['_lv_grid_fr'] = makeInvalidEarlyAccess('_lv_grid_fr');
 var _lv_layout_init = Module['_lv_layout_init'] = makeInvalidEarlyAccess('_lv_layout_init');
 var _lv_layout_deinit = Module['_lv_layout_deinit'] = makeInvalidEarlyAccess('_lv_layout_deinit');
 var _lv_layout_register = Module['_lv_layout_register'] = makeInvalidEarlyAccess('_lv_layout_register');
-var _lv_bin_decoder_init = Module['_lv_bin_decoder_init'] = makeInvalidEarlyAccess('_lv_bin_decoder_init');
 var _lv_bin_decoder_info = Module['_lv_bin_decoder_info'] = makeInvalidEarlyAccess('_lv_bin_decoder_info');
 var _lv_bin_decoder_open = Module['_lv_bin_decoder_open'] = makeInvalidEarlyAccess('_lv_bin_decoder_open');
 var _lv_bin_decoder_get_area = Module['_lv_bin_decoder_get_area'] = makeInvalidEarlyAccess('_lv_bin_decoder_get_area');
 var _lv_bin_decoder_close = Module['_lv_bin_decoder_close'] = makeInvalidEarlyAccess('_lv_bin_decoder_close');
+var _lv_fs_get_ext = Module['_lv_fs_get_ext'] = makeInvalidEarlyAccess('_lv_fs_get_ext');
 var _lv_fs_stdio_init = Module['_lv_fs_stdio_init'] = makeInvalidEarlyAccess('_lv_fs_stdio_init');
 var _lv_canvas_get_draw_buf = Module['_lv_canvas_get_draw_buf'] = makeInvalidEarlyAccess('_lv_canvas_get_draw_buf');
 var _lv_image_cache_drop = Module['_lv_image_cache_drop'] = makeInvalidEarlyAccess('_lv_image_cache_drop');
@@ -6394,7 +6395,6 @@ var _lv_color24_luminance = Module['_lv_color24_luminance'] = makeInvalidEarlyAc
 var _lv_trigo_cos = Module['_lv_trigo_cos'] = makeInvalidEarlyAccess('_lv_trigo_cos');
 var _lv_point_from_precise = Module['_lv_point_from_precise'] = makeInvalidEarlyAccess('_lv_point_from_precise');
 var _lv_point_swap = Module['_lv_point_swap'] = makeInvalidEarlyAccess('_lv_point_swap');
-var _lv_fs_get_ext = Module['_lv_fs_get_ext'] = makeInvalidEarlyAccess('_lv_fs_get_ext');
 var _lv_snprintf = Module['_lv_snprintf'] = makeInvalidEarlyAccess('_lv_snprintf');
 var _lv_strlcpy = Module['_lv_strlcpy'] = makeInvalidEarlyAccess('_lv_strlcpy');
 var _lv_ll_clear_custom = Module['_lv_ll_clear_custom'] = makeInvalidEarlyAccess('_lv_ll_clear_custom');
@@ -7401,6 +7401,7 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['lvglGroupRemoveObjectsForScreen'] != 'undefined', 'missing Wasm export: lvglGroupRemoveObjectsForScreen');
   assert(typeof wasmExports['lvglAddEventHandler'] != 'undefined', 'missing Wasm export: lvglAddEventHandler');
   assert(typeof wasmExports['lvglSetEventUserData'] != 'undefined', 'missing Wasm export: lvglSetEventUserData');
+  assert(typeof wasmExports['lv_bin_decoder_init'] != 'undefined', 'missing Wasm export: lv_bin_decoder_init');
   assert(typeof wasmExports['lvglCreateScreen'] != 'undefined', 'missing Wasm export: lvglCreateScreen');
   assert(typeof wasmExports['lvglCreateUserWidget'] != 'undefined', 'missing Wasm export: lvglCreateUserWidget');
   assert(typeof wasmExports['lvglScreenLoad'] != 'undefined', 'missing Wasm export: lvglScreenLoad');
@@ -8204,11 +8205,11 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['lv_layout_init'] != 'undefined', 'missing Wasm export: lv_layout_init');
   assert(typeof wasmExports['lv_layout_deinit'] != 'undefined', 'missing Wasm export: lv_layout_deinit');
   assert(typeof wasmExports['lv_layout_register'] != 'undefined', 'missing Wasm export: lv_layout_register');
-  assert(typeof wasmExports['lv_bin_decoder_init'] != 'undefined', 'missing Wasm export: lv_bin_decoder_init');
   assert(typeof wasmExports['lv_bin_decoder_info'] != 'undefined', 'missing Wasm export: lv_bin_decoder_info');
   assert(typeof wasmExports['lv_bin_decoder_open'] != 'undefined', 'missing Wasm export: lv_bin_decoder_open');
   assert(typeof wasmExports['lv_bin_decoder_get_area'] != 'undefined', 'missing Wasm export: lv_bin_decoder_get_area');
   assert(typeof wasmExports['lv_bin_decoder_close'] != 'undefined', 'missing Wasm export: lv_bin_decoder_close');
+  assert(typeof wasmExports['lv_fs_get_ext'] != 'undefined', 'missing Wasm export: lv_fs_get_ext');
   assert(typeof wasmExports['lv_fs_stdio_init'] != 'undefined', 'missing Wasm export: lv_fs_stdio_init');
   assert(typeof wasmExports['lv_canvas_get_draw_buf'] != 'undefined', 'missing Wasm export: lv_canvas_get_draw_buf');
   assert(typeof wasmExports['lv_image_cache_drop'] != 'undefined', 'missing Wasm export: lv_image_cache_drop');
@@ -8235,7 +8236,6 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['lv_trigo_cos'] != 'undefined', 'missing Wasm export: lv_trigo_cos');
   assert(typeof wasmExports['lv_point_from_precise'] != 'undefined', 'missing Wasm export: lv_point_from_precise');
   assert(typeof wasmExports['lv_point_swap'] != 'undefined', 'missing Wasm export: lv_point_swap');
-  assert(typeof wasmExports['lv_fs_get_ext'] != 'undefined', 'missing Wasm export: lv_fs_get_ext');
   assert(typeof wasmExports['lv_snprintf'] != 'undefined', 'missing Wasm export: lv_snprintf');
   assert(typeof wasmExports['lv_strlcpy'] != 'undefined', 'missing Wasm export: lv_strlcpy');
   assert(typeof wasmExports['lv_ll_clear_custom'] != 'undefined', 'missing Wasm export: lv_ll_clear_custom');
@@ -9239,6 +9239,7 @@ function assignWasmExports(wasmExports) {
   _lvglGroupRemoveObjectsForScreen = Module['_lvglGroupRemoveObjectsForScreen'] = createExportWrapper('lvglGroupRemoveObjectsForScreen', 1);
   _lvglAddEventHandler = Module['_lvglAddEventHandler'] = createExportWrapper('lvglAddEventHandler', 1);
   _lvglSetEventUserData = Module['_lvglSetEventUserData'] = createExportWrapper('lvglSetEventUserData', 2);
+  _lv_bin_decoder_init = Module['_lv_bin_decoder_init'] = createExportWrapper('lv_bin_decoder_init', 0);
   _lvglCreateScreen = Module['_lvglCreateScreen'] = createExportWrapper('lvglCreateScreen', 6);
   _lvglCreateUserWidget = Module['_lvglCreateUserWidget'] = createExportWrapper('lvglCreateUserWidget', 6);
   _lvglScreenLoad = Module['_lvglScreenLoad'] = createExportWrapper('lvglScreenLoad', 2);
@@ -10042,11 +10043,11 @@ function assignWasmExports(wasmExports) {
   _lv_layout_init = Module['_lv_layout_init'] = createExportWrapper('lv_layout_init', 0);
   _lv_layout_deinit = Module['_lv_layout_deinit'] = createExportWrapper('lv_layout_deinit', 0);
   _lv_layout_register = Module['_lv_layout_register'] = createExportWrapper('lv_layout_register', 2);
-  _lv_bin_decoder_init = Module['_lv_bin_decoder_init'] = createExportWrapper('lv_bin_decoder_init', 0);
   _lv_bin_decoder_info = Module['_lv_bin_decoder_info'] = createExportWrapper('lv_bin_decoder_info', 3);
   _lv_bin_decoder_open = Module['_lv_bin_decoder_open'] = createExportWrapper('lv_bin_decoder_open', 2);
   _lv_bin_decoder_get_area = Module['_lv_bin_decoder_get_area'] = createExportWrapper('lv_bin_decoder_get_area', 4);
   _lv_bin_decoder_close = Module['_lv_bin_decoder_close'] = createExportWrapper('lv_bin_decoder_close', 2);
+  _lv_fs_get_ext = Module['_lv_fs_get_ext'] = createExportWrapper('lv_fs_get_ext', 1);
   _lv_fs_stdio_init = Module['_lv_fs_stdio_init'] = createExportWrapper('lv_fs_stdio_init', 0);
   _lv_canvas_get_draw_buf = Module['_lv_canvas_get_draw_buf'] = createExportWrapper('lv_canvas_get_draw_buf', 1);
   _lv_image_cache_drop = Module['_lv_image_cache_drop'] = createExportWrapper('lv_image_cache_drop', 1);
@@ -10073,7 +10074,6 @@ function assignWasmExports(wasmExports) {
   _lv_trigo_cos = Module['_lv_trigo_cos'] = createExportWrapper('lv_trigo_cos', 1);
   _lv_point_from_precise = Module['_lv_point_from_precise'] = createExportWrapper('lv_point_from_precise', 2);
   _lv_point_swap = Module['_lv_point_swap'] = createExportWrapper('lv_point_swap', 2);
-  _lv_fs_get_ext = Module['_lv_fs_get_ext'] = createExportWrapper('lv_fs_get_ext', 1);
   _lv_snprintf = Module['_lv_snprintf'] = createExportWrapper('lv_snprintf', 4);
   _lv_strlcpy = Module['_lv_strlcpy'] = createExportWrapper('lv_strlcpy', 3);
   _lv_ll_clear_custom = Module['_lv_ll_clear_custom'] = createExportWrapper('lv_ll_clear_custom', 2);
