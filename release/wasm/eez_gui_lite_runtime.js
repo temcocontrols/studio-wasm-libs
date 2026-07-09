@@ -1717,6 +1717,7 @@ var _eezgui_set_fonts = Module['_eezgui_set_fonts'] = makeInvalidEarlyAccess('_e
 var _setStyles = Module['_setStyles'] = makeInvalidEarlyAccess('_setStyles');
 var _eezgui_set_styles = Module['_eezgui_set_styles'] = makeInvalidEarlyAccess('_eezgui_set_styles');
 var _allocTextWidget = Module['_allocTextWidget'] = makeInvalidEarlyAccess('_allocTextWidget');
+var _malloc = Module['_malloc'] = makeInvalidEarlyAccess('_malloc');
 var _allocButtonWidget = Module['_allocButtonWidget'] = makeInvalidEarlyAccess('_allocButtonWidget');
 var _allocRectangleWidget = Module['_allocRectangleWidget'] = makeInvalidEarlyAccess('_allocRectangleWidget');
 var _allocSwitchWidget = Module['_allocSwitchWidget'] = makeInvalidEarlyAccess('_allocSwitchWidget');
@@ -1821,7 +1822,6 @@ var _getStyleFlagVertAlignBottom = Module['_getStyleFlagVertAlignBottom'] = make
 var _getStyleFlagVertAlignCenter = Module['_getStyleFlagVertAlignCenter'] = makeInvalidEarlyAccess('_getStyleFlagVertAlignCenter');
 var _getStyleFlagBlink = Module['_getStyleFlagBlink'] = makeInvalidEarlyAccess('_getStyleFlagBlink');
 var _makeColor = Module['_makeColor'] = makeInvalidEarlyAccess('_makeColor');
-var _malloc = Module['_malloc'] = makeInvalidEarlyAccess('_malloc');
 var _eezgui_alloc_from_state = Module['_eezgui_alloc_from_state'] = makeInvalidEarlyAccess('_eezgui_alloc_from_state');
 var _String_format = Module['_String_format'] = makeInvalidEarlyAccess('_String_format');
 var _Math_min = Module['_Math_min'] = makeInvalidEarlyAccess('_Math_min');
@@ -1829,9 +1829,9 @@ var _Math_max = Module['_Math_max'] = makeInvalidEarlyAccess('_Math_max');
 var _System_getTick = Module['_System_getTick'] = makeInvalidEarlyAccess('_System_getTick');
 var _eezgui_log = Module['_eezgui_log'] = makeInvalidEarlyAccess('_eezgui_log');
 var _fflush = makeInvalidEarlyAccess('_fflush');
+var _strerror = makeInvalidEarlyAccess('_strerror');
 var _emscripten_stack_get_end = makeInvalidEarlyAccess('_emscripten_stack_get_end');
 var _emscripten_stack_get_base = makeInvalidEarlyAccess('_emscripten_stack_get_base');
-var _strerror = makeInvalidEarlyAccess('_strerror');
 var _emscripten_stack_init = makeInvalidEarlyAccess('_emscripten_stack_init');
 var _emscripten_stack_get_free = makeInvalidEarlyAccess('_emscripten_stack_get_free');
 var __emscripten_stack_restore = makeInvalidEarlyAccess('__emscripten_stack_restore');
@@ -1853,6 +1853,7 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['setStyles'] != 'undefined', 'missing Wasm export: setStyles');
   assert(typeof wasmExports['eezgui_set_styles'] != 'undefined', 'missing Wasm export: eezgui_set_styles');
   assert(typeof wasmExports['allocTextWidget'] != 'undefined', 'missing Wasm export: allocTextWidget');
+  assert(typeof wasmExports['malloc'] != 'undefined', 'missing Wasm export: malloc');
   assert(typeof wasmExports['allocButtonWidget'] != 'undefined', 'missing Wasm export: allocButtonWidget');
   assert(typeof wasmExports['allocRectangleWidget'] != 'undefined', 'missing Wasm export: allocRectangleWidget');
   assert(typeof wasmExports['allocSwitchWidget'] != 'undefined', 'missing Wasm export: allocSwitchWidget');
@@ -1957,7 +1958,6 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['getStyleFlagVertAlignCenter'] != 'undefined', 'missing Wasm export: getStyleFlagVertAlignCenter');
   assert(typeof wasmExports['getStyleFlagBlink'] != 'undefined', 'missing Wasm export: getStyleFlagBlink');
   assert(typeof wasmExports['makeColor'] != 'undefined', 'missing Wasm export: makeColor');
-  assert(typeof wasmExports['malloc'] != 'undefined', 'missing Wasm export: malloc');
   assert(typeof wasmExports['eezgui_alloc_from_state'] != 'undefined', 'missing Wasm export: eezgui_alloc_from_state');
   assert(typeof wasmExports['String_format'] != 'undefined', 'missing Wasm export: String_format');
   assert(typeof wasmExports['Math_min'] != 'undefined', 'missing Wasm export: Math_min');
@@ -1965,9 +1965,9 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['System_getTick'] != 'undefined', 'missing Wasm export: System_getTick');
   assert(typeof wasmExports['eezgui_log'] != 'undefined', 'missing Wasm export: eezgui_log');
   assert(typeof wasmExports['fflush'] != 'undefined', 'missing Wasm export: fflush');
+  assert(typeof wasmExports['strerror'] != 'undefined', 'missing Wasm export: strerror');
   assert(typeof wasmExports['emscripten_stack_get_end'] != 'undefined', 'missing Wasm export: emscripten_stack_get_end');
   assert(typeof wasmExports['emscripten_stack_get_base'] != 'undefined', 'missing Wasm export: emscripten_stack_get_base');
-  assert(typeof wasmExports['strerror'] != 'undefined', 'missing Wasm export: strerror');
   assert(typeof wasmExports['emscripten_stack_init'] != 'undefined', 'missing Wasm export: emscripten_stack_init');
   assert(typeof wasmExports['emscripten_stack_get_free'] != 'undefined', 'missing Wasm export: emscripten_stack_get_free');
   assert(typeof wasmExports['_emscripten_stack_restore'] != 'undefined', 'missing Wasm export: _emscripten_stack_restore');
@@ -1986,6 +1986,7 @@ function assignWasmExports(wasmExports) {
   _setStyles = Module['_setStyles'] = createExportWrapper('setStyles', 2);
   _eezgui_set_styles = Module['_eezgui_set_styles'] = createExportWrapper('eezgui_set_styles', 3);
   _allocTextWidget = Module['_allocTextWidget'] = createExportWrapper('allocTextWidget', 0);
+  _malloc = Module['_malloc'] = createExportWrapper('malloc', 1);
   _allocButtonWidget = Module['_allocButtonWidget'] = createExportWrapper('allocButtonWidget', 0);
   _allocRectangleWidget = Module['_allocRectangleWidget'] = createExportWrapper('allocRectangleWidget', 0);
   _allocSwitchWidget = Module['_allocSwitchWidget'] = createExportWrapper('allocSwitchWidget', 0);
@@ -2090,7 +2091,6 @@ function assignWasmExports(wasmExports) {
   _getStyleFlagVertAlignCenter = Module['_getStyleFlagVertAlignCenter'] = createExportWrapper('getStyleFlagVertAlignCenter', 0);
   _getStyleFlagBlink = Module['_getStyleFlagBlink'] = createExportWrapper('getStyleFlagBlink', 0);
   _makeColor = Module['_makeColor'] = createExportWrapper('makeColor', 3);
-  _malloc = Module['_malloc'] = createExportWrapper('malloc', 1);
   _eezgui_alloc_from_state = Module['_eezgui_alloc_from_state'] = createExportWrapper('eezgui_alloc_from_state', 2);
   _String_format = Module['_String_format'] = createExportWrapper('String_format', 3);
   _Math_min = Module['_Math_min'] = createExportWrapper('Math_min', 2);
@@ -2098,9 +2098,9 @@ function assignWasmExports(wasmExports) {
   _System_getTick = Module['_System_getTick'] = createExportWrapper('System_getTick', 0);
   _eezgui_log = Module['_eezgui_log'] = createExportWrapper('eezgui_log', 5);
   _fflush = createExportWrapper('fflush', 1);
+  _strerror = createExportWrapper('strerror', 1);
   _emscripten_stack_get_end = wasmExports['emscripten_stack_get_end'];
   _emscripten_stack_get_base = wasmExports['emscripten_stack_get_base'];
-  _strerror = createExportWrapper('strerror', 1);
   _emscripten_stack_init = wasmExports['emscripten_stack_init'];
   _emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'];
   __emscripten_stack_restore = wasmExports['_emscripten_stack_restore'];
