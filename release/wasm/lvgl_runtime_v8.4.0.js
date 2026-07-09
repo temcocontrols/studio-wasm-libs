@@ -5314,47 +5314,41 @@ function checkIncomingModuleAPI() {
   ignoredModuleProp('onCOSStore');
 }
 var ASM_CONSTS = {
-  1071136: ($0) => { startToDebuggerMessage($0); },  
- 1071168: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
- 1071243: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
- 1071318: ($0) => { finishToDebuggerMessage($0); },  
- 1071351: ($0, $1) => { lvglCreateScreen($0, $1); },  
- 1071381: ($0, $1) => { lvglDeleteScreen($0, $1); },  
- 1071411: ($0) => { lvglScreenTick($0); },  
- 1071435: ($0, $1, $2, $3) => { lvglOnEventHandler($0, $1, $2, $3); },  
- 1071475: ($0, $1) => { return getLvglScreenByName($0, UTF8ToString($1)); },  
- 1071529: ($0, $1) => { return getLvglObjectByName($0, UTF8ToString($1)); },  
- 1071583: ($0, $1) => { return getLvglGroupByName($0, UTF8ToString($1)); },  
- 1071636: ($0, $1) => { return getLvglStyleByName($0, UTF8ToString($1)); },  
- 1071689: ($0, $1) => { return getLvglImageByName($0, UTF8ToString($1)); },  
- 1071742: ($0, $1) => { return getLvglFontByName($0, UTF8ToString($1)); },  
- 1071794: ($0, $1) => { return getLvglObjectNameFromIndex($0, $1); },  
- 1071841: ($0, $1, $2) => { lvglObjAddStyle($0, $1, $2); },  
- 1071874: ($0, $1, $2) => { lvglObjRemoveStyle($0, $1, $2); },  
- 1071910: ($0, $1) => { lvglSetColorTheme($0, UTF8ToString($1)); },  
- 1071955: ($0, $1, $2) => { console.log("[C:onFlowStateCreated] subscribed=" + !!$0 + " flowStateIdx=" + $1 + " flowIdx=" + $2); },  
- 1072060: ($0, $1, $2, $3) => { console.log("[C:onPageChanged] previousPageId=" + $0 + " activePageId=" + $1 + " activePageIsFromStack=" + !!$2 + " previousPageIsStillOnStack=" + !!$3); },  
- 1072218: () => { console.log("[C:onPageChanged] RETURNING: flow is STOPPED"); },  
- 1072283: () => { console.log("[C:onPageChanged] RETURNING: same page"); },  
- 1072342: ($0) => { console.log("[C:onPageChanged] not on stack, previousPageId=" + $0); },  
- 1072415: ($0) => { console.log("[C:onPageChanged] closePage flowState=" + ($0 ? "OK" : "NULL")); },  
- 1072497: ($0) => { console.log("[C:onPageChanged] not from stack, activePageId=" + $0); },  
- 1072570: ($0) => { console.log("[C:onPageChanged] openPage flowState=" + ($0 ? "OK" : "NULL")); },  
- 1072651: ($0) => { console.log("[C:onPageChanged] sending PAGE_CHANGED activePageId=" + $0); },  
- 1072729: () => { console.log("[C:onPageChanged] NOT subscribed to PAGE_CHANGED!"); },  
- 1072799: ($0, $1, $2, $3, $4, $5) => { return eez_mqtt_init($0, UTF8ToString($1), UTF8ToString($2), $3, UTF8ToString($4), UTF8ToString($5)); },  
- 1072905: ($0, $1) => { return eez_mqtt_deinit($0, $1); },  
- 1072941: ($0, $1) => { return eez_mqtt_connect($0, $1); },  
- 1072978: ($0, $1) => { return eez_mqtt_disconnect($0, $1); },  
- 1073018: ($0, $1, $2) => { return eez_mqtt_subscribe($0, $1, UTF8ToString($2)); },  
- 1073075: ($0, $1, $2) => { return eez_mqtt_unsubscribe($0, $1, UTF8ToString($2)); },  
- 1073134: ($0, $1, $2, $3) => { return eez_mqtt_publish($0, $1, UTF8ToString($2), UTF8ToString($3)); },  
- 1073207: ($0, $1, $2) => { console.log("[C:getPageFlowState] assets=" + ($0 ? "OK" : "NULL") + " hasFlowDef=" + !!$1 + " pageIndex=" + $2); },  
- 1073324: () => { console.log("[C:getPageFlowState] RETURNING NULL: no flowDefinition"); },  
- 1073399: () => { console.log("[C:getPageFlowState] RETURNING NULL: flow is STOPPED"); },  
- 1073472: ($0) => { console.log("[C:getPageFlowState] FOUND existing flowState idx=" + $0); },  
- 1073548: ($0) => { console.log("[C:getPageFlowState] CREATING new flowState for pageIndex=" + $0); },  
- 1073632: ($0) => { console.log("[C:getPageFlowState] created flowState=" + ($0 ? "OK" : "NULL")); }
+  1071424: ($0) => { startToDebuggerMessage($0); },  
+ 1071456: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
+ 1071531: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
+ 1071606: ($0) => { finishToDebuggerMessage($0); },  
+ 1071639: ($0, $1) => { lvglCreateScreen($0, $1); },  
+ 1071669: ($0, $1) => { lvglDeleteScreen($0, $1); },  
+ 1071699: ($0) => { lvglScreenTick($0); },  
+ 1071723: ($0, $1, $2, $3) => { lvglOnEventHandler($0, $1, $2, $3); },  
+ 1071763: ($0, $1) => { return getLvglScreenByName($0, UTF8ToString($1)); },  
+ 1071817: ($0, $1) => { return getLvglObjectByName($0, UTF8ToString($1)); },  
+ 1071871: ($0, $1) => { return getLvglGroupByName($0, UTF8ToString($1)); },  
+ 1071924: ($0, $1) => { return getLvglStyleByName($0, UTF8ToString($1)); },  
+ 1071977: ($0, $1) => { return getLvglImageByName($0, UTF8ToString($1)); },  
+ 1072030: ($0, $1) => { return getLvglFontByName($0, UTF8ToString($1)); },  
+ 1072082: ($0, $1) => { return getLvglObjectNameFromIndex($0, $1); },  
+ 1072129: ($0, $1, $2) => { lvglObjAddStyle($0, $1, $2); },  
+ 1072162: ($0, $1, $2) => { lvglObjRemoveStyle($0, $1, $2); },  
+ 1072198: ($0, $1) => { lvglSetColorTheme($0, UTF8ToString($1)); },  
+ 1072243: ($0, $1, $2) => { console.log("[C:onFlowStateCreated] subscribed=" + !!$0 + " flowStateIdx=" + $1 + " flowIdx=" + $2); },  
+ 1072348: ($0, $1, $2, $3) => { console.log("[C:onPageChanged] previousPageId=" + $0 + " activePageId=" + $1 + " activePageIsFromStack=" + !!$2 + " previousPageIsStillOnStack=" + !!$3); },  
+ 1072506: () => { console.log("[C:onPageChanged] RETURNING: flow is STOPPED"); },  
+ 1072571: () => { console.log("[C:onPageChanged] RETURNING: same page"); },  
+ 1072630: ($0) => { console.log("[C:onPageChanged] not on stack, previousPageId=" + $0); },  
+ 1072703: ($0) => { console.log("[C:onPageChanged] closePage flowState=" + ($0 ? "OK" : "NULL")); },  
+ 1072785: ($0) => { console.log("[C:onPageChanged] not from stack, activePageId=" + $0); },  
+ 1072858: ($0) => { console.log("[C:onPageChanged] openPage flowState=" + ($0 ? "OK" : "NULL")); },  
+ 1072939: ($0) => { console.log("[C:onPageChanged] sending PAGE_CHANGED activePageId=" + $0); },  
+ 1073017: () => { console.log("[C:onPageChanged] NOT subscribed to PAGE_CHANGED!"); },  
+ 1073087: ($0, $1, $2, $3, $4, $5) => { return eez_mqtt_init($0, UTF8ToString($1), UTF8ToString($2), $3, UTF8ToString($4), UTF8ToString($5)); },  
+ 1073193: ($0, $1) => { return eez_mqtt_deinit($0, $1); },  
+ 1073229: ($0, $1) => { return eez_mqtt_connect($0, $1); },  
+ 1073266: ($0, $1) => { return eez_mqtt_disconnect($0, $1); },  
+ 1073306: ($0, $1, $2) => { return eez_mqtt_subscribe($0, $1, UTF8ToString($2)); },  
+ 1073363: ($0, $1, $2) => { return eez_mqtt_unsubscribe($0, $1, UTF8ToString($2)); },  
+ 1073422: ($0, $1, $2, $3) => { return eez_mqtt_publish($0, $1, UTF8ToString($2), UTF8ToString($3)); }
 };
 
 // Imports from the Wasm binary.
@@ -5551,6 +5545,7 @@ var _lvglGroupAddObject = Module['_lvglGroupAddObject'] = makeInvalidEarlyAccess
 var _lvglGroupRemoveObjectsForScreen = Module['_lvglGroupRemoveObjectsForScreen'] = makeInvalidEarlyAccess('_lvglGroupRemoveObjectsForScreen');
 var _lvglAddEventHandler = Module['_lvglAddEventHandler'] = makeInvalidEarlyAccess('_lvglAddEventHandler');
 var _lvglSetEventUserData = Module['_lvglSetEventUserData'] = makeInvalidEarlyAccess('_lvglSetEventUserData');
+var _flow_enable = Module['_flow_enable'] = makeInvalidEarlyAccess('_flow_enable');
 var _lvglCreateScreen = Module['_lvglCreateScreen'] = makeInvalidEarlyAccess('_lvglCreateScreen');
 var _lvglCreateUserWidget = Module['_lvglCreateUserWidget'] = makeInvalidEarlyAccess('_lvglCreateUserWidget');
 var _lvglScreenLoad = Module['_lvglScreenLoad'] = makeInvalidEarlyAccess('_lvglScreenLoad');
@@ -6801,6 +6796,7 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['lvglGroupRemoveObjectsForScreen'] != 'undefined', 'missing Wasm export: lvglGroupRemoveObjectsForScreen');
   assert(typeof wasmExports['lvglAddEventHandler'] != 'undefined', 'missing Wasm export: lvglAddEventHandler');
   assert(typeof wasmExports['lvglSetEventUserData'] != 'undefined', 'missing Wasm export: lvglSetEventUserData');
+  assert(typeof wasmExports['flow_enable'] != 'undefined', 'missing Wasm export: flow_enable');
   assert(typeof wasmExports['lvglCreateScreen'] != 'undefined', 'missing Wasm export: lvglCreateScreen');
   assert(typeof wasmExports['lvglCreateUserWidget'] != 'undefined', 'missing Wasm export: lvglCreateUserWidget');
   assert(typeof wasmExports['lvglScreenLoad'] != 'undefined', 'missing Wasm export: lvglScreenLoad');
@@ -8048,6 +8044,7 @@ function assignWasmExports(wasmExports) {
   _lvglGroupRemoveObjectsForScreen = Module['_lvglGroupRemoveObjectsForScreen'] = createExportWrapper('lvglGroupRemoveObjectsForScreen', 1);
   _lvglAddEventHandler = Module['_lvglAddEventHandler'] = createExportWrapper('lvglAddEventHandler', 1);
   _lvglSetEventUserData = Module['_lvglSetEventUserData'] = createExportWrapper('lvglSetEventUserData', 2);
+  _flow_enable = Module['_flow_enable'] = createExportWrapper('flow_enable', 2);
   _lvglCreateScreen = Module['_lvglCreateScreen'] = createExportWrapper('lvglCreateScreen', 6);
   _lvglCreateUserWidget = Module['_lvglCreateUserWidget'] = createExportWrapper('lvglCreateUserWidget', 6);
   _lvglScreenLoad = Module['_lvglScreenLoad'] = createExportWrapper('lvglScreenLoad', 2);
