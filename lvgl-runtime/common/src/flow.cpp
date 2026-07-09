@@ -715,6 +715,11 @@ extern "C" void flowInit(uint32_t wasmModuleId, uint32_t debuggerMessageSubscipt
 
     eez::flow::start(eez::g_mainAssets);
 
+    // Fix embedded image decoder corrupted by flow::start
+#if LVGL_VERSION_MAJOR >= 9
+    lv_bin_decoder_init();
+#endif
+
     g_screensLifetimeSupport = screensLifetimeSupport;
     if (g_screensLifetimeSupport) {
         eez_flow_set_create_screen_func(createScreen);
@@ -722,6 +727,32 @@ extern "C" void flowInit(uint32_t wasmModuleId, uint32_t debuggerMessageSubscipt
     }
 
     g_currentScreen = 0;
+}
+
+// Enable flow expression evaluation without loadMainAssets or flow::start.
+// Sets hooks + debugger + g_isStopped=false. Images preserved, controls work.
+extern "C" EM_PORT_API(void) flow_enable(uint32_t wasmModuleId, uint32_t debuggerMessageSubsciptionFilter) {
+    eez::flow::g_wasmModuleId = wasmModuleId;
+    eez::flow::startToDebuggerMessageHook = startToDebuggerMessage;
+    eez::flow::writeDebuggerBufferHook = writeDebuggerBuffer;
+    eez::flow::finishToDebuggerMessageHook = finishToDebuggerMessage;
+    eez::flow::replacePageHook = replacePageHook;
+    eez::flow::stopScriptHook = stopScript;
+    eez::flow::getLvglObjectFromIndexHook = getLvglObjectFromIndex;
+    eez::flow::getLvglScreenByNameHook = getLvglScreenByName;
+    eez::flow::getLvglObjectByNameHook = getLvglObjectByName;
+    eez::flow::getLvglGroupByNameHook = getLvglGroupByName;
+    eez::flow::getLvglStyleByNameHook = getLvglStyleByName;
+    eez::flow::getLvglImageByNameHook = getLvglImageByName;
+    eez::flow::getLvglFontByNameHook = getLvglFontByName;
+    eez::flow::getLvglObjectNameFromIndexHook = getLvglObjectNameFromIndex;
+    eez::flow::lvglObjAddStyleHook = lvglObjAddStyle;
+    eez::flow::lvglObjRemoveStyleHook = lvglObjRemoveStyle;
+    eez::flow::getLvglGroupFromIndexHook = getLvglGroupFromIndex;
+    eez::flow::lvglSetColorThemeHook = lvglSetColorTheme;
+    eez::flow::setDebuggerMessageSubsciptionFilter(debuggerMessageSubsciptionFilter);
+    eez::flow::onDebuggerClientConnected();
+    eez::flow::setNotStopped();
 }
 
 extern "C" bool flowTick() {
