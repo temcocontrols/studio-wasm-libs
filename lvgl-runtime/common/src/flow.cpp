@@ -752,7 +752,6 @@ extern "C" EM_PORT_API(void) flow_enable(uint32_t wasmModuleId, uint32_t debugge
     eez::flow::lvglSetColorThemeHook = lvglSetColorTheme;
     eez::flow::setDebuggerMessageSubsciptionFilter(debuggerMessageSubsciptionFilter);
     eez::flow::onDebuggerClientConnected();
-    eez::flow::setNotStopped();
 }
 
 extern "C" bool flowTick() {

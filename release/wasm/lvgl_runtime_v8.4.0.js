@@ -5314,41 +5314,31 @@ function checkIncomingModuleAPI() {
   ignoredModuleProp('onCOSStore');
 }
 var ASM_CONSTS = {
-  1071424: ($0) => { startToDebuggerMessage($0); },  
- 1071456: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
- 1071531: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
- 1071606: ($0) => { finishToDebuggerMessage($0); },  
- 1071639: ($0, $1) => { lvglCreateScreen($0, $1); },  
- 1071669: ($0, $1) => { lvglDeleteScreen($0, $1); },  
- 1071699: ($0) => { lvglScreenTick($0); },  
- 1071723: ($0, $1, $2, $3) => { lvglOnEventHandler($0, $1, $2, $3); },  
- 1071763: ($0, $1) => { return getLvglScreenByName($0, UTF8ToString($1)); },  
- 1071817: ($0, $1) => { return getLvglObjectByName($0, UTF8ToString($1)); },  
- 1071871: ($0, $1) => { return getLvglGroupByName($0, UTF8ToString($1)); },  
- 1071924: ($0, $1) => { return getLvglStyleByName($0, UTF8ToString($1)); },  
- 1071977: ($0, $1) => { return getLvglImageByName($0, UTF8ToString($1)); },  
- 1072030: ($0, $1) => { return getLvglFontByName($0, UTF8ToString($1)); },  
- 1072082: ($0, $1) => { return getLvglObjectNameFromIndex($0, $1); },  
- 1072129: ($0, $1, $2) => { lvglObjAddStyle($0, $1, $2); },  
- 1072162: ($0, $1, $2) => { lvglObjRemoveStyle($0, $1, $2); },  
- 1072198: ($0, $1) => { lvglSetColorTheme($0, UTF8ToString($1)); },  
- 1072243: ($0, $1, $2) => { console.log("[C:onFlowStateCreated] subscribed=" + !!$0 + " flowStateIdx=" + $1 + " flowIdx=" + $2); },  
- 1072348: ($0, $1, $2, $3) => { console.log("[C:onPageChanged] previousPageId=" + $0 + " activePageId=" + $1 + " activePageIsFromStack=" + !!$2 + " previousPageIsStillOnStack=" + !!$3); },  
- 1072506: () => { console.log("[C:onPageChanged] RETURNING: flow is STOPPED"); },  
- 1072571: () => { console.log("[C:onPageChanged] RETURNING: same page"); },  
- 1072630: ($0) => { console.log("[C:onPageChanged] not on stack, previousPageId=" + $0); },  
- 1072703: ($0) => { console.log("[C:onPageChanged] closePage flowState=" + ($0 ? "OK" : "NULL")); },  
- 1072785: ($0) => { console.log("[C:onPageChanged] not from stack, activePageId=" + $0); },  
- 1072858: ($0) => { console.log("[C:onPageChanged] openPage flowState=" + ($0 ? "OK" : "NULL")); },  
- 1072939: ($0) => { console.log("[C:onPageChanged] sending PAGE_CHANGED activePageId=" + $0); },  
- 1073017: () => { console.log("[C:onPageChanged] NOT subscribed to PAGE_CHANGED!"); },  
- 1073087: ($0, $1, $2, $3, $4, $5) => { return eez_mqtt_init($0, UTF8ToString($1), UTF8ToString($2), $3, UTF8ToString($4), UTF8ToString($5)); },  
- 1073193: ($0, $1) => { return eez_mqtt_deinit($0, $1); },  
- 1073229: ($0, $1) => { return eez_mqtt_connect($0, $1); },  
- 1073266: ($0, $1) => { return eez_mqtt_disconnect($0, $1); },  
- 1073306: ($0, $1, $2) => { return eez_mqtt_subscribe($0, $1, UTF8ToString($2)); },  
- 1073363: ($0, $1, $2) => { return eez_mqtt_unsubscribe($0, $1, UTF8ToString($2)); },  
- 1073422: ($0, $1, $2, $3) => { return eez_mqtt_publish($0, $1, UTF8ToString($2), UTF8ToString($3)); }
+  1071088: ($0) => { startToDebuggerMessage($0); },  
+ 1071120: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
+ 1071195: ($0, $1, $2) => { writeDebuggerBuffer($0, new Uint8Array(Module.HEAPU8.buffer, $1, $2)); },  
+ 1071270: ($0) => { finishToDebuggerMessage($0); },  
+ 1071303: ($0, $1) => { lvglCreateScreen($0, $1); },  
+ 1071333: ($0, $1) => { lvglDeleteScreen($0, $1); },  
+ 1071363: ($0) => { lvglScreenTick($0); },  
+ 1071387: ($0, $1, $2, $3) => { lvglOnEventHandler($0, $1, $2, $3); },  
+ 1071427: ($0, $1) => { return getLvglScreenByName($0, UTF8ToString($1)); },  
+ 1071481: ($0, $1) => { return getLvglObjectByName($0, UTF8ToString($1)); },  
+ 1071535: ($0, $1) => { return getLvglGroupByName($0, UTF8ToString($1)); },  
+ 1071588: ($0, $1) => { return getLvglStyleByName($0, UTF8ToString($1)); },  
+ 1071641: ($0, $1) => { return getLvglImageByName($0, UTF8ToString($1)); },  
+ 1071694: ($0, $1) => { return getLvglFontByName($0, UTF8ToString($1)); },  
+ 1071746: ($0, $1) => { return getLvglObjectNameFromIndex($0, $1); },  
+ 1071793: ($0, $1, $2) => { lvglObjAddStyle($0, $1, $2); },  
+ 1071826: ($0, $1, $2) => { lvglObjRemoveStyle($0, $1, $2); },  
+ 1071862: ($0, $1) => { lvglSetColorTheme($0, UTF8ToString($1)); },  
+ 1071907: ($0, $1, $2, $3, $4, $5) => { return eez_mqtt_init($0, UTF8ToString($1), UTF8ToString($2), $3, UTF8ToString($4), UTF8ToString($5)); },  
+ 1072013: ($0, $1) => { return eez_mqtt_deinit($0, $1); },  
+ 1072049: ($0, $1) => { return eez_mqtt_connect($0, $1); },  
+ 1072086: ($0, $1) => { return eez_mqtt_disconnect($0, $1); },  
+ 1072126: ($0, $1, $2) => { return eez_mqtt_subscribe($0, $1, UTF8ToString($2)); },  
+ 1072183: ($0, $1, $2) => { return eez_mqtt_unsubscribe($0, $1, UTF8ToString($2)); },  
+ 1072242: ($0, $1, $2, $3) => { return eez_mqtt_publish($0, $1, UTF8ToString($2), UTF8ToString($3)); }
 };
 
 // Imports from the Wasm binary.
@@ -6578,7 +6568,6 @@ var _lv_textarea_text_is_selected = Module['_lv_textarea_text_is_selected'] = ma
 var _lv_textarea_get_text_selection = Module['_lv_textarea_get_text_selection'] = makeInvalidEarlyAccess('_lv_textarea_get_text_selection');
 var _lv_textarea_get_password_show_time = Module['_lv_textarea_get_password_show_time'] = makeInvalidEarlyAccess('_lv_textarea_get_password_show_time');
 var _onMqttEvent = Module['_onMqttEvent'] = makeInvalidEarlyAccess('_onMqttEvent');
-var _eez_flow_add_images = Module['_eez_flow_add_images'] = makeInvalidEarlyAccess('_eez_flow_add_images');
 var _eez_flow_init_themes = Module['_eez_flow_init_themes'] = makeInvalidEarlyAccess('_eez_flow_init_themes');
 var _flowPropagateValueLVGLEvent = Module['_flowPropagateValueLVGLEvent'] = makeInvalidEarlyAccess('_flowPropagateValueLVGLEvent');
 var __evalIntegerProperty = Module['__evalIntegerProperty'] = makeInvalidEarlyAccess('__evalIntegerProperty');
@@ -7829,7 +7818,6 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports['lv_textarea_get_text_selection'] != 'undefined', 'missing Wasm export: lv_textarea_get_text_selection');
   assert(typeof wasmExports['lv_textarea_get_password_show_time'] != 'undefined', 'missing Wasm export: lv_textarea_get_password_show_time');
   assert(typeof wasmExports['onMqttEvent'] != 'undefined', 'missing Wasm export: onMqttEvent');
-  assert(typeof wasmExports['eez_flow_add_images'] != 'undefined', 'missing Wasm export: eez_flow_add_images');
   assert(typeof wasmExports['eez_flow_init_themes'] != 'undefined', 'missing Wasm export: eez_flow_init_themes');
   assert(typeof wasmExports['flowPropagateValueLVGLEvent'] != 'undefined', 'missing Wasm export: flowPropagateValueLVGLEvent');
   assert(typeof wasmExports['_evalIntegerProperty'] != 'undefined', 'missing Wasm export: _evalIntegerProperty');
@@ -9077,7 +9065,6 @@ function assignWasmExports(wasmExports) {
   _lv_textarea_get_text_selection = Module['_lv_textarea_get_text_selection'] = createExportWrapper('lv_textarea_get_text_selection', 1);
   _lv_textarea_get_password_show_time = Module['_lv_textarea_get_password_show_time'] = createExportWrapper('lv_textarea_get_password_show_time', 1);
   _onMqttEvent = Module['_onMqttEvent'] = createExportWrapper('onMqttEvent', 4);
-  _eez_flow_add_images = Module['_eez_flow_add_images'] = createExportWrapper('eez_flow_add_images', 2);
   _eez_flow_init_themes = Module['_eez_flow_init_themes'] = createExportWrapper('eez_flow_init_themes', 5);
   _flowPropagateValueLVGLEvent = Module['_flowPropagateValueLVGLEvent'] = createExportWrapper('flowPropagateValueLVGLEvent', 4);
   __evalIntegerProperty = Module['__evalIntegerProperty'] = createExportWrapper('_evalIntegerProperty', 6);
